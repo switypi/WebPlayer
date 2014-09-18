@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="Script/Silverlight.js"></script>
+    <script type="text/javascript">
+        function onSilverlightError(sender, args) {
+            var appSource = "";
+            if (sender != null && sender != 0) {
+                appSource = sender.getHost().Source;
+            }
+
+            var errorType = args.ErrorType;
+            var iErrorCode = args.ErrorCode;
+
+            if (errorType == "ImageError" || errorType == "MediaError") {
+                return;
+            }
+
+            var errMsg = "Unhandled Error in Silverlight Application " + appSource + "\n";
+
+            errMsg += "Code: " + iErrorCode + "    \n";
+            errMsg += "Category: " + errorType + "       \n";
+            errMsg += "Message: " + args.ErrorMessage + "     \n";
+
+            if (errorType == "ParserError") {
+                errMsg += "File: " + args.xamlFile + "     \n";
+                errMsg += "Line: " + args.lineNumber + "     \n";
+                errMsg += "Position: " + args.charPosition + "     \n";
+            }
+            else if (errorType == "RuntimeError") {
+                if (args.lineNumber != 0) {
+                    errMsg += "Line: " + args.lineNumber + "     \n";
+                    errMsg += "Position: " + args.charPosition + "     \n";
+                }
+                errMsg += "MethodName: " + args.methodName + "     \n";
+            }
+
+            throw new Error(errMsg);
+        }
+        function onGo() {
+            var slcontrol = document.getElementById("slPlugin");
+            var url = document.getElementById("urlID");
+            if (slcontrol) {
+                slcontrol.Content.Page.SetURL(url.value);
+
+            }
+        }
+    </script>
+    <style type="text/css">
+        html, body {
+            height: 100%;
+            overflow: auto;
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        #silverlightControlHost {
+            height: 95%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <span style="margin-left:5%;margin-top:5%">
+        <input id="urlID" type="text" style="width: 80%;border-color:blue;" />
+        <input type="button" onclick="onGo()" value="Go" id="Button1" />
+            </span>
+    </div>
+    <span></span>
+    <div id="silverlightControlHost">
+
+
+        <script type="text/javascript">
+            Silverlight.createObject(
+                "ClientBin/MyDemo.xap",  // source
+                silverlightControlHost,  // parent element
+                "slPlugin",  // id for generated object element
+                {
+                    width: "100%", height: "100%", background: "white",
+                    version: "5.0.61118.0"
+                },
+
+                { onError: onSilverlightError },
+                "context"    // context helper for onLoad handler.
+            );
+        </script>
+    </div>
+
+</body>
+</html>

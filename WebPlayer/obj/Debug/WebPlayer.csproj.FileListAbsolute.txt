@@ -1,0 +1,5 @@
+E:\Silverlight\WebPlayer\WebPlayer\bin\WebPlayer.dll
+E:\Silverlight\WebPlayer\WebPlayer\bin\WebPlayer.pdb
+E:\Silverlight\WebPlayer\WebPlayer\obj\Debug\WebPlayer.dll
+E:\Silverlight\WebPlayer\WebPlayer\obj\Debug\WebPlayer.pdb
+E:\Silverlight\WebPlayer\WebPlayer\obj\Debug\WebPlayer.csprojResolveAssemblyReference.cache
